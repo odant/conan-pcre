@@ -56,7 +56,7 @@ class PcreConan(ConanFile):
         
     def package_info(self):
         self.cpp_info.libs = ["pcre"]
-        if self.settings.build_type == "Debug":
+        if self.settings.os == "Windows" and self.settings.build_type == "Debug":
             self.cpp_info.libs = ["pcred"]
         if self.settings.os == "Windows":
             self.cpp_info.defines.append("PCRE_STATIC")
