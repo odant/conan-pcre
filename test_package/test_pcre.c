@@ -4,6 +4,8 @@
 
 
 int main(int argc, char** argv) {
+    
+    printf("PCRE Version: %s", pcre_version());
 
     const char pattern[] = "^(GET|POST)$";
     const char* error;

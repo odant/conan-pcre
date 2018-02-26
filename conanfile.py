@@ -14,7 +14,7 @@ class PcreConan(ConanFile):
         "arch": ["x86_64", "x86"]
     }
     generators = "cmake"
-    exports_sources = "pcre-8.41/*", "CMakeLists.txt"
+    exports_sources = "pcre-8.41/*", "CMakeLists.txt", "FindPCRE.cmake"
     no_copy_source = True
     build_policy = "missing"
 
@@ -48,6 +48,7 @@ class PcreConan(ConanFile):
         cmake.build()
 
     def package(self):
+        self.copy("FindPCRE.cmake", src=".", dst=".")
         self.copy("*pcre.h", dst="include", keep_path=False)
         self.copy("*pcre.lib", dst="lib", keep_path=False)
         self.copy("*pcred.lib", dst="lib", keep_path=False)

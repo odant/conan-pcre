@@ -18,3 +18,18 @@ add_test(
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
     COMMAND test_pcre_CONAN_PKG
 )
+
+find_package(PCRE)
+
+add_executable(test_pcre test_pcre.c)
+target_link_libraries(test_pcre PCRE::PCRE)
+set_target_properties(test_pcre
+    PROPERTIES
+    INSTALL_RPATH "$ORIGIN"
+    BUILD_WITH_INSTALL_RPATH True
+)
+add_test(
+    NAME test_pcre
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
+    COMMAND test_pcre
+)
