@@ -19,7 +19,7 @@ add_test(
     COMMAND test_pcre_CONAN_PKG
 )
 
-find_package(PCRE)
+find_package(PCRE REQUIRED)
 
 add_executable(test_pcre test_pcre.c)
 target_link_libraries(test_pcre PCRE::PCRE)
