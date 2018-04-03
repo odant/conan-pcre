@@ -20,6 +20,7 @@ add_test(
 )
 
 find_package(PCRE REQUIRED)
+message(STATUS "PCRE_VERSION: ${PCRE_VERSION}")
 
 add_executable(test_pcre test_pcre.c)
 target_link_libraries(test_pcre PCRE::PCRE)
