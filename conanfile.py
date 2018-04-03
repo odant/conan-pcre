@@ -52,6 +52,8 @@ class PcreConan(ConanFile):
         self.copy("*pcre.h", dst="include", keep_path=False)
         self.copy("*pcre.lib", dst="lib", keep_path=False)
         self.copy("*pcred.lib", dst="lib", keep_path=False)
+        self.copy("*pcre.pdb", dst="bin", keep_path=False)
+        self.copy("*pcred.pdb", dst="bin", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
         
     def package_info(self):
