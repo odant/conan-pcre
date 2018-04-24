@@ -11,7 +11,7 @@ class PcreConan(ConanFile):
         "os": ["Windows", "Linux"],
         "compiler": ["Visual Studio", "gcc"],
         "build_type": ["Debug", "Release"],
-        "arch": ["x86_64", "x86"]
+        "arch": ["x86_64", "x86", "mips"]
     }
     generators = "cmake"
     exports_sources = "pcre-8.41/*", "CMakeLists.txt", "FindPCRE.cmake"
