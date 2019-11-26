@@ -49,6 +49,7 @@ class PcreConan(ConanFile):
 
     def package(self):
         self.copy("FindPCRE.cmake", src=".", dst=".")
+        self.copy("pcreposix.h", src="pcre-8.43", dst="include", keep_path=False)
         self.copy("*pcre.h", dst="include", keep_path=False)
         self.copy("*pcre.lib", dst="lib", keep_path=False)
         self.copy("*pcred.lib", dst="lib", keep_path=False)
