@@ -14,7 +14,7 @@ class PcreConan(ConanFile):
         "arch": ["x86_64", "x86", "mips", "armv7"]
     }
     generators = "cmake"
-    exports_sources = "pcre-8.43/*", "CMakeLists.txt", "FindPCRE.cmake"
+    exports_sources = "pcre-8.43/*", "CMakeLists.txt", "FindPCRE.cmake", "regex.h"
     no_copy_source = True
     build_policy = "missing"
 
@@ -50,6 +50,7 @@ class PcreConan(ConanFile):
     def package(self):
         self.copy("FindPCRE.cmake", src=".", dst=".")
         self.copy("pcreposix.h", src="pcre-8.43", dst="include", keep_path=False)
+        self.copy("regex.h", src=".", dst="include", keep_path=False)
         self.copy("*pcre.h", dst="include", keep_path=False)
         self.copy("*pcre.lib", dst="lib", keep_path=False)
         self.copy("*pcred.lib", dst="lib", keep_path=False)
