@@ -3,7 +3,7 @@ from conans import ConanFile, CMake
 
 class PcreConan(ConanFile):
     name = "pcre"
-    version = "8.43+1"
+    version = "8.43+2"
     license = "PCRE2 License https://www.pcre.org/licence.txt"
     description = "PCRE2 is a library of functions to support regular expressions whose syntax and semantics are as close as possible to those of the Perl 5 language."
     url = "https://github.com/odant/conan-pcre"
