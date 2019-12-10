@@ -1,5 +1,10 @@
 from conans import ConanFile, CMake
 
+def get_safe(options, name):
+    try:
+        return getattr(options, name, None)
+    except ConanException:
+        return None
 
 class PcreConan(ConanFile):
     name = "pcre"
@@ -13,12 +18,18 @@ class PcreConan(ConanFile):
         "build_type": ["Debug", "Release"],
         "arch": ["x86_64", "x86", "mips", "armv7"]
     }
+    options = {
+        "pcreposix": [False, True]
+    }
+    default_options = "pcreposix=True"
     generators = "cmake"
     exports_sources = "pcre-8.43/*", "CMakeLists.txt", "FindPCRE.cmake", "regex.h"
     no_copy_source = True
     build_policy = "missing"
 
     def configure(self):
+        if self.settings.os != "Windows":
+            del self.options.pcreposix
         # Pure C library
         del self.settings.compiler.libcxx
 
@@ -49,19 +60,28 @@ class PcreConan(ConanFile):
 
     def package(self):
         self.copy("FindPCRE.cmake", src=".", dst=".")
-        self.copy("pcreposix.h", src="pcre-8.43", dst="include", keep_path=False)
-        self.copy("regex.h", src=".", dst="include", keep_path=False)
         self.copy("*pcre.h", dst="include", keep_path=False)
         self.copy("*pcre.lib", dst="lib", keep_path=False)
         self.copy("*pcred.lib", dst="lib", keep_path=False)
         self.copy("*pcre.pdb", dst="bin", keep_path=False)
         self.copy("*pcred.pdb", dst="bin", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
+        if get_safe(self.options, "pcreposix"):
+            self.copy("pcreposix.h", src="pcre-8.43", dst="include", keep_path=False)
+            self.copy("regex.h", src=".", dst="include", keep_path=False)
+            self.copy("*pcreposix.lib", dst="lib", keep_path=False)
+            self.copy("*pcreposixd.lib", dst="lib", keep_path=False)
+            self.copy("*pcreposix.pdb", dst="bin", keep_path=False)
+            self.copy("*pcreposixd.pdb", dst="bin", keep_path=False)
         
     def package_info(self):
         self.cpp_info.libs = ["pcre"]
         if self.settings.os == "Windows" and self.settings.build_type == "Debug":
             self.cpp_info.libs = ["pcred"]
+        if get_safe(self.options, "pcreposix"):
+            self.cpp_info.libs = ["pcre", "pcreposix"]
+            if self.settings.os == "Windows" and self.settings.build_type == "Debug":
+                self.cpp_info.libs = ["pcred", "pcreposixd"]
         if self.settings.os == "Windows":
             self.cpp_info.defines.append("PCRE_STATIC")
 
