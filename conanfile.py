@@ -1,4 +1,5 @@
 from conans import ConanFile, CMake
+from conans.errors import ConanException
 
 def get_safe(options, name):
     try:
