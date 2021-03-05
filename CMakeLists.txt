@@ -3,4 +3,4 @@
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-add_subdirectory(pcre-8.43)
+add_subdirectory(pcre-8.44)
