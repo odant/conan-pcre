@@ -24,7 +24,7 @@ class PcreConan(ConanFile):
     }
     default_options = "pcreposix=True"
     generators = "cmake"
-    exports_sources = "pcre-8.44/*", "CMakeLists.txt", "FindPCRE.cmake", "regex.h"
+    exports_sources = "pcre-8.45/*", "CMakeLists.txt", "FindPCRE.cmake", "regex.h"
     no_copy_source = True
     build_policy = "missing"
 
@@ -68,7 +68,7 @@ class PcreConan(ConanFile):
         self.copy("*pcred.pdb", dst="bin", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
         if get_safe(self.options, "pcreposix"):
-            self.copy("pcreposix.h", src="pcre-8.44", dst="include", keep_path=False)
+            self.copy("pcreposix.h", src="pcre-8.45", dst="include", keep_path=False)
             self.copy("regex.h", src=".", dst="include", keep_path=False)
             self.copy("*pcreposix.lib", dst="lib", keep_path=False)
             self.copy("*pcreposixd.lib", dst="lib", keep_path=False)
