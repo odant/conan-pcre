@@ -29,8 +29,6 @@ class PcreConan(ConanFile):
     build_policy = "missing"
 
     def configure(self):
-        if self.settings.os != "Windows":
-            del self.options.pcreposix
         # Pure C library
         del self.settings.compiler.libcxx
 
